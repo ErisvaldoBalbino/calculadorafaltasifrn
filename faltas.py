@@ -48,3 +48,4 @@ except ValueError as erro:
 st.markdown('---')
 st.header('Sobre')
 st.text('Fórmula: ((total de aulas - faltas) / total de aulas) * 100')
+st.text('O total de aulas é diferente da carga horária.')
