@@ -2,14 +2,14 @@ import streamlit as st
 
 def calcular_porcentagem_faltas(faltas, totalaulas):
     if faltas > totalaulas:
-        raise ValueError('O número de faltas não pode ser maior do que o total de aulas.')
+        raise ValueError('A quantidade de faltas não pode ser maior do que o total de aulas.')
     return ((totalaulas - faltas) / totalaulas) * 100
 
 st.title('Calculadora de faltas IFRN')
-st.write('Calculadora simples para saber sua porcentagem de faltas em uma disciplina do IFRN')
+st.write('Calculadora simples para saber a sua porcentagem de faltas em uma disciplina do IFRN')
 
-totalaulas = st.number_input('Total de aulas', 1, 100)
-faltas = st.number_input('Quantidade de faltas', 0, 100)
+totalaulas = st.number_input('Total de aulas', 1)
+faltas = st.number_input('Quantidade de faltas', 0)
 
 try:
     porcentagem = calcular_porcentagem_faltas(faltas, totalaulas)
@@ -39,9 +39,13 @@ try:
         emoji = ':scream:'
 
     if porcentagem >= 75:
-        st.success(f'Você tem {porcentagem:.2f}% de presença! {emoji}')
+        st.success(f'Você tem **{porcentagem:.2f}%** de presença! {emoji}')
     else:
-        st.error(f'Você tem {porcentagem:.2f}% de presença. {emoji}')
+        st.error(f'Você tem **{porcentagem:.2f}%** de presença. {emoji}')
+
+    faltasdisponiveis = totalaulas - ((75 / 100) * totalaulas)
+    st.info(f'Você pode ter **{faltasdisponiveis:.0f}** faltas.')
+
 except ValueError as erro:
     st.error(str(erro))
 
